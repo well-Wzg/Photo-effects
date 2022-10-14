@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block css %}
+    <style>
+        .dropdown-toggle{
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    {% include "navbar.html" with title="index" %}
+    <div class="w-100">
+        <div class="row">
+            <div class="col-2">
+                <!-- Default dropright button -->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="dropright w-100">
+                            <div class="dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false">
+                                An item
+                            </div>
+                            <div class="dropdown-menu">
+                                <!-- Dropdown menu links -->
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="dropright w-100">
+                            <div class="dropdown-toggle" data-toggle="dropdown"
+                                 aria-expanded="false">
+                                A second item
+                            </div>
+                            <div class="dropdown-menu">
+                                <!-- Dropdown menu links -->
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                </ul>
+
+
+            </div>
+            <div class="col-6 border rounded bg-light">
+                <h3 class="text-center">Image</h3>
+                <img src="{{ MEDIA_URL }}{{ img_obj.image_file.url }}" alt="{{ img_obj.image_file.url }}" width="100%">
+            </div>
+
+            <div class="col-4 border rounded bg-light">
+                <h3 class="text-center">Tools</h3>
+            </div>
+        </div>
+    </div>
+{% endblock %}

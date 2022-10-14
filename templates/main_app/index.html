@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block css %}
+    <style>
+        .border-dashed{
+            border-style:dotted !important;
+        }
+        #id_image_file{
+            display: none;
+        }
+        label{
+            margin-top: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        label:hover{
+            color: #b1dfbb;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    {% include "navbar.html" with title="index" %}
+
+    <div class="container bg-light">
+        {% include "messages.html" %}
+        <div class="row mb-2 justify-content-center">
+            <h3 class="col-6 text-primary text-center">Upload New Image</h3>
+            <div class="col-12">
+                <form action="" method="post" enctype="multipart/form-data" class="form col-4 border border-success rounded-lg m-auto">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <div id="display_file_name"></div>
+                    {% buttons %}
+                        <button type="submit" class="btn btn-success btn-sm">Submit</button>
+                    {% endbuttons %}
+                </form>
+            </div>
+        </div>
+        <div class="row mb-2 justify-content-center">
+            <h3 class="col-6 text-primary text-center">History</h3>
+            {% if history_images %}
+            <div class="container">
+                <div class="row row-cols-4 ">
+                    {% for item in history_images %}
+                        <div class="col mt-2 border border-dark rounded-lg border-dashed">
+                            <div class="d-flex flex-column">
+                                <div class="col-12 text-right">
+                                    <div class="btn-group mt-1 mb-1">
+                                        <a class="btn btn-sm btn-outline-primary" href="{% url 'main_app:edit' item.id %}">
+                                            <i class="bi bi-pencil text-primary"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-outline-primary" href="{{ MEDIA_URL }}{{ item.image_file.url }}" download="" target="_blank">
+                                            <i class="bi bi-download text-primary"></i>
+                                        </a>
+                                    </div>
+
+
+{#                                    <i class="bi bi-trash text-primary"></i>#}
+                                </div>
+                                <div class="col-12 mb-1">
+                                    <img src="{{ MEDIA_URL }}{{ item.image_file.url }}" alt="" width="100%" height="100%">
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                  </div>
+            </div>
+            {% else %}
+                <p class="col-12 text-warning text-center">Please upload image.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        $("#id_image_file").change(function () {
+            var filename = this.files[0].name;
+            $("#display_file_name").html(filename)
+            $("label[for='id_image_file']").attr("style","color:#b1dfbb")
+        });
+    </script>
+{% endblock %}
